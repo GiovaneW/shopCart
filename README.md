@@ -12,7 +12,9 @@ Carrinho de compras para ecomerce
 # Instalando as dependências
 - Depois de feito o clone do rpojeto execute o comando de instalação das dependências no terminal dentro da pasta onde o clone foi feito
 
-    ```$ npm ci```
+    ```
+    $ npm ci```
+
 
 
 # Variaveis de ambiente
@@ -25,24 +27,31 @@ arquivo './src/config/database/config.json' conforme as novas informações qeu 
 - Depois de instaladas as dependências do projeto vamos criar o container de docker que vai rodar o nosso banco local e persistir nossos dados, 
 para isso, abra um terminal de comando na pasta do projetoe siga os passos abaixo
 
-- Para criar o container execute o seguinte comando
+## Para criar o container execute o seguinte comando
+    
+```
+$ npm run docker-db
+```
+
+
+## Para criar o banco de dados dentro do container execute o seguinte comando
  
-    ```$ npm run docker-db```
+```
+$ npm run create-db
+```
 
 
-- Para criar o banco de dados dentro do container execute o seguinte comando
+## Para rodar as migrations execute o seguinte comando
  
-    ```$ npm run create-db```
+```
+$ npm run migrations
+```
 
-
-- Para rodar as migrations execute o seguinte comando
+## Para rodar os seeders execute o seguinte comando
  
-    ```$ npm run migrations```
-
-
-- Para rodar os seeders execute o seguinte comando
- 
-    ```$ npm run seeds```
+```
+$ npm run seeds
+```
 
 
 # Executando o build do projeto
@@ -51,14 +60,18 @@ para isso, abra um terminal de comando na pasta do projetoe siga os passos abaix
 - O código buildado estará em uma pasta na raiz do projeto chamada 'build'
 
 
-    ```$ npm run build```
+```
+$ npm run build
+```
 
 
 # Executando o projeto
 - Para rodar o projeto em ambiente de desenvolvimento fazemos uso de um server que executa nosso projeto em typescript fazendo uma transpilação em tempo real e reiniciando o 
 projeto sempre que uma alteração no código é detenctada (quando você salvar o qualquer arquivo alterado que já esteja sendo importado na execução)
 
-    ```$ npm run dev```
+```
+$ npm run dev
+```
 
 
 
@@ -73,4 +86,5 @@ projeto sempre que uma alteração no código é detenctada (quando você salvar
 - project: para alterações da estrutura/organização do projeto
 - devops: comits que tratam de alterações da parte dos pipelines de automação
 
+## Observações
 Ps.: não há um linter de comandos configurado ainda mas se você não utilizar os prefixos corretos sua PR não será aprovada
