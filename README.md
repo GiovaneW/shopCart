@@ -11,9 +11,9 @@ Carrinho de compras para ecomerce
 
 # Instalando as dependências
 - Depois de feito o clone do rpojeto execute o comando de instalação das dependências no terminal dentro da pasta onde o clone foi feito
-<bash>
-    `npm ci`
-</bash>
+
+    ```$ npm ci```
+
 
 # Variaveis de ambiente
 - Faça uma cópia do arquivo env.example renomeando-o para .env apenas
@@ -26,40 +26,40 @@ arquivo './src/config/database/config.json' conforme as novas informações qeu 
 para isso, abra um terminal de comando na pasta do projetoe siga os passos abaixo
 
 - Para criar o container execute o seguinte comando
-<bash> 
-    `npm run docker-db`
-</bash>
+ 
+    ```$ npm run docker-db```
+
 
 - Para criar o banco de dados dentro do container execute o seguinte comando
-<bash> 
-    `npm run create-db`
-</bash>
+ 
+    ```$ npm run create-db```
+
 
 - Para rodar as migrations execute o seguinte comando
-<bash> 
-    `npm run migrations`
-</bash>
+ 
+    ```$ npm run migrations```
+
 
 - Para rodar os seeders execute o seguinte comando
-<bash> 
-    `npm run seeds`
-</bash>
+ 
+    ```$ npm run seeds```
+
 
 # Executando o build do projeto
 - Para rodar o build do codigo typescript basta executar o comando a seguir em um terminal de comnado na pasta do projeto
 - Este comando irá rodar um linter no projeto e ira transpilar todo o nosso codigo typescript para um javascript otimizado para o node (o node roda apenas codigos em javascript)
 - O código buildado estará em uma pasta na raiz do projeto chamada 'build'
 
-<bash>
-    `npm run build`
-</bash>
+
+    ```$ npm run build```
+
 
 # Executando o projeto
 - Para rodar o projeto em ambiente de desenvolvimento fazemos uso de um server que executa nosso projeto em typescript fazendo uma transpilação em tempo real e reiniciando o 
 projeto sempre que uma alteração no código é detenctada (quando você salvar o qualquer arquivo alterado que já esteja sendo importado na execução)
-<bash>
-    `npm run dev`
-</bash>
+
+    ```$ npm run dev```
+
 
 
 # Regras de commits
