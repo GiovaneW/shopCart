@@ -11,9 +11,9 @@ Carrinho de compras para ecomerce
 
 # Instalando as dependências
 - Depois de feito o clone do rpojeto execute o comando de instalação das dependências no terminal dentro da pasta onde o clone foi feito
-`bash
-    npm ci
-bash`
+<bash>
+    `npm ci`
+</bash>
 
 # Variaveis de ambiente
 - Faça uma cópia do arquivo env.example renomeando-o para .env apenas
@@ -27,22 +27,22 @@ para isso, abra um terminal de comando na pasta do projetoe siga os passos abaix
 
 - Para criar o container execute o seguinte comando
 <bash> 
-    npm run docker-db
+    `npm run docker-db`
 </bash>
 
 - Para criar o banco de dados dentro do container execute o seguinte comando
 <bash> 
-    npm run create-db
+    `npm run create-db`
 </bash>
 
 - Para rodar as migrations execute o seguinte comando
 <bash> 
-    npm run migrations
+    `npm run migrations`
 </bash>
 
 - Para rodar os seeders execute o seguinte comando
 <bash> 
-    npm run seeds
+    `npm run seeds`
 </bash>
 
 # Executando o build do projeto
@@ -51,14 +51,14 @@ para isso, abra um terminal de comando na pasta do projetoe siga os passos abaix
 - O código buildado estará em uma pasta na raiz do projeto chamada 'build'
 
 <bash>
-    npm run build
+    `npm run build`
 </bash>
 
 # Executando o projeto
 - Para rodar o projeto em ambiente de desenvolvimento fazemos uso de um server que executa nosso projeto em typescript fazendo uma transpilação em tempo real e reiniciando o 
 projeto sempre que uma alteração no código é detenctada (quando você salvar o qualquer arquivo alterado que já esteja sendo importado na execução)
 <bash>
-    npm run dev
+    `npm run dev`
 </bash>
 
 
