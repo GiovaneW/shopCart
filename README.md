@@ -11,9 +11,9 @@ Carrinho de compras para ecomerce
 
 # Instalando as dependências
 - Depois de feito o clone do rpojeto execute o comando de instalação das dependências no terminal dentro da pasta onde o clone foi feito
-<bash>
+`bash
     npm ci
-</bash>
+bash`
 
 # Variaveis de ambiente
 - Faça uma cópia do arquivo env.example renomeando-o para .env apenas
