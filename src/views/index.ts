@@ -1,5 +1,4 @@
 import { Request, Response, Router } from 'express'
-import * as fs from 'fs'
 
 class RenderRoutes {
     public router: Router
@@ -10,15 +9,14 @@ class RenderRoutes {
     }
 
     private routes(): void {
-        this.router.get('/teste', (req: Request, res: Response) => {
-            try {
-                console.log('teste')
-                // const mycss = fs.readFileSync('../styles/styles.css', 'utf8')
-                res.render('teste')
-            } catch (error) {
-                console.log(error)
-                
-            }
+        this.router.get('/produtos', (req: Request, res: Response) => {
+            res.render('./products/list')
+        })
+
+        this.router.get('/carrinho/:id', (req: Request, res: Response) => {
+            res.render('./products/cart', {
+                id: req.params.id
+            })
         })
     }
 }

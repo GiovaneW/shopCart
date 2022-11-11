@@ -2,7 +2,6 @@ import { createNamespace } from 'cls-hooked'
 import compression from 'compression'
 import express, { Application, NextFunction, Request, Response } from 'express'
 import path from 'path'
-import { dirname } from 'path/posix'
 import { ValidationError } from 'sequelize'
 import { apiRoutes } from './routes'
 import { AppError, NotFoundError, WeeValidationError } from './utils/awesomeErrorsManage'
@@ -28,7 +27,7 @@ class App {
         this.express.set('view engine', 'ejs')
         this.express.use(express.static(path.join(__dirname, 'public')))
         this.express.use(express.json())
-        this.express.use(express.urlencoded({ extended: false }))
+        this.express.use(express.urlencoded({ extended: true }))
         this.express.use(compression())
 
         createNamespace('session')
@@ -49,9 +48,6 @@ class App {
         })
 
         this.express.use('/api', apiRoutes.router)
-        // this.express.get('/teste', (req: Request, res: Response) => {
-        //     res.render('./scr/views/pages/teste')
-        // })
         this.express.use(renderRoutes.router)
     }
 
