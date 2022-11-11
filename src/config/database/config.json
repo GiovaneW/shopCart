@@ -17,6 +17,8 @@
         "charset": "utf8",
         "storage": "sequelize",
         "migrationStorageTableName": "sequelize_migrations",
-        "seederStorageTableName": "sequelize_seeds"
+        "seederStorage": "sequelize",
+        "seederStorageTableName": "sequelize_seeds",
+        "logging": false
     }
 }
