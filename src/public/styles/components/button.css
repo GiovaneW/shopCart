@@ -1,0 +1,26 @@
+.btn-primary {
+    background-color: var(--space-cadet-2);
+    color: var(--ghost-white) !important;
+    border-radius: 0.3rem;
+    min-width: 7rem;
+    height: 35px;
+    cursor: pointer;
+}
+
+.btn-secondary {
+    background-color: var(--granite-gray);
+    color: var(--ghost-white) !important;
+    border-radius: 0.3rem;
+    min-width: 7rem;
+    height: 35px;
+    cursor: pointer;
+}
+
+.btn-danger {
+    background-color: var(--red-danger);
+    color: var(--ghost-white) !important;
+    border-radius: 0.3rem;
+    min-width: 7rem;
+    height: 35px;
+    cursor: pointer;
+}

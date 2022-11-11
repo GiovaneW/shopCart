@@ -1,0 +1,53 @@
+.form {
+    color: inherit;
+    background-color: transparent;
+}
+
+.form-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+    justify-content: space-between;
+    padding: 0.1rem;
+}
+
+.form-header {
+    font-size: inherit;
+    color: inherit;
+    font-weight: 800;
+    min-height: 2rem;
+    display: flex;
+    align-items: center;
+}
+
+.form-body {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 0.3rem;
+    padding: 1rem;
+}
+
+.form-footer {
+    min-height: 3rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    gap: 0.7rem;
+    padding: 0.3rem;
+}
+
+.form-field {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    max-width: 25%;
+    padding: 00.1rem;
+}
+
+.form-line {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 0.1rem;
+}
