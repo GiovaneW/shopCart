@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Random Title</title>
+
+    <!-- CSS link (loading Semantic UI from a CDN) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
+        integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css"
+        integrity="sha512-8bHTC73gkZ7rZ7vpqUQThUDhqcNFyYi2xgDgPDHc+GXVGHXq+xPjynxIopALmOPqzo9JZj0k6OqqewdGO3EsrQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link type="text/css" href="/styles/index.css" rel="stylesheet" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" type="text/css" crossorigin="anonymous"
+        href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.css">
+
+    <script type="text/javascript" charset="utf8"
+        src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.js"></script>
+
+    <script type="text/javascript">
+        let cartId = localStorage.getItem('cartId')
+        let productId = null
+        let action = null
+
+        function ajaxApi(method, url) {
+            $.ajax({
+                method,
+                url,
+                data: '',
+                processData: false,
+                cache: false,
+                success: function (data) {
+                    alert(data?.message ?? 'Ação executada com sucesso.')
+                    document.location.reload()
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    alert(jqXHR.responseJSON?.message ?? 'Ops ocorreu um erro.')
+                    if (jqXHR.status == 200) {
+                        document.location.reload()
+                    }
+                }
+            })
+        }
+
+        function editProd(product, amount, perDiscount) {
+            $('#amount').val(amount)
+            $('#percentDiscount').val(perDiscount)
+            productId = product
+            openModal('modal-edit-prod')
+        }
+
+        function cancelForm() {
+            $('#amount').val('')
+            $('#percentDiscount').val('')
+            closeModal('modal-edit-prod')
+        }
+
+        function deleteProd(product) {
+            action = {
+                method: 'DELETE',
+                url: `/api/shop-cart/remove-product/${product}`
+            }
+            openModal('modal-delete-prod')
+        }
+
+        function openModal(modalId) {
+            const modal = document.getElementById(modalId)
+
+            modal.style.display = 'block'
+        }
+
+        function closeModal(modalId) {
+            const modal = document.getElementById(modalId)
+
+            modal.style.display = 'none'
+        }
+
+        function confirmModal() {
+            ajaxApi(action.method, action.url)
+            closeModal('modal-delete-prod')
+        }
+
+        function goToList() {
+            document.location.href = `/produtos`
+        }
+
+        $(document).ready(function () {
+            $.ajax({
+                method: 'GET',
+                url: `/api/shop-cart/${cartId}`,
+                success: function (jqXHR) {
+                    document.getElementById('field-total-tax').textContent += jqXHR.cart.totalTax.toLocaleString('pt-Br', { minimumFractionDigits: 2, currency: 'BRL', style: 'currency' })
+                    document.getElementById('field-total-products').textContent += jqXHR.cart.totalProducts.toLocaleString('pt-Br', { minimumFractionDigits: 2, currency: 'BRL', style: 'currency' })
+                    document.getElementById('field-total-cart').textContent += jqXHR.cart.totalCart.toLocaleString('pt-Br', { minimumFractionDigits: 2, currency: 'BRL', style: 'currency' })
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    alert('Ocorreu um erro ao carregar os dados do carrinho.')
+                    goToList()
+                }
+            })
+        })
+
+        $(document).ready(function () {
+            $('#form-add-prod').submit(function (event) {
+                const amount = $('#amount').val()
+                const percentDiscount = $('#percentDiscount').val()
+                const body = {
+                    productId,
+                    amount,
+                    percentDiscount
+                }
+                $.ajax({
+                    method: 'PUT',
+                    url: `/api/shop-cart/${cartId}`,
+                    dataType: 'json',
+                    data: JSON.stringify(body),
+                    contentType: 'application/json; charset=utf8',
+                    success: function (data, textStatus, JQueryXHR) {
+                        if (data?.id && !cartId) {
+                            cartId = data.id
+                            localStorage.setItem('cartId', cartId)
+                        }
+                        alert(data?.message ?? 'Produto atualizado no carrinho.')
+                        document.location.reload()
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        if (jqXHR.status !== 200) {
+                            alert(jqXHR.responseJSON?.message ?? 'Erro ao adicionar produto ao carrinho.')
+                        } else {
+                            if (!cartId && jqXHR.responseJSON?.id) {
+                                cartId = jqXHR.responseJSON?.id
+                                localStorage.setItem('cartId', cartId)
+                            }
+                            document.location.reload()
+                        }
+                    }
+                })
+                event.preventDefault()
+            })
+        })
+    </script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#table-cart').DataTable({
+                ajax: '/api/shop-cart/<%- id%>',
+                "columns": [
+                    {
+                        render: function (data, type, full, meta) {
+                            return full.Product.description
+                        }
+                    },
+                    {
+                        class: 'dt-center',
+                        render: function (data, type, full, meta) {
+                            return Number.parseFloat(full.amount)
+                        }
+                    },
+                    {
+                        data: 'valDiscount',
+                        class: 'dt-right',
+                        render: function (data, type, full, meta) {
+                            return Number.parseFloat(full.valDiscount).toLocaleString('pt-Br', { minimumFractionDigits: 2, currency: 'BRL', style: 'currency' })
+                        }
+                    },
+                    {
+                        class: 'dt-right',
+                        render: function (data, type, full, meta) {
+                            return Number.parseFloat(full.itemSubtotal).toLocaleString('pt-Br', { minimumFractionDigits: 2, currency: 'BRL', style: 'currency' })
+                        }
+                    },
+                    {
+                        sortable: false,
+                        class: 'dt-center',
+                        render: function (data, type, full, meta) {
+                            let productId = full.Product.id
+                            let amount = full.amount
+                            let perDiscount = full.perDiscount
+                            return `<div><i class="fa fa-pencil actions" style="margin-right: 2px" title='Editar Produto.' onclick="editProd(${productId}, ${amount}, ${perDiscount})"></i>` +
+                                ` <i class="fa fa-trash actions" title='Remover do Carrinho.' onclick="deleteProd(${productId})"></i></div>`
+                        }
+                    }
+                ],
+                order: [],
+                ordering: true,
+                rowGroup: {
+                    emptyDataGroup: 'Carrinho vazio.'
+                },
+            })
+        })
+    </script>
+
+</head>
+
+<body class="body">
+
+    <header class="header">
+        <div class="header-item" style="width: 60px;">
+            Home
+        </div>
+        <div class="header-item nav-button">
+            <i class="fa fa-list" onclick="goToList()"></i>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="page-title">
+            <label class="label-title">
+                Lista de Produtos no Carrinho
+            </label>
+        </div>
+        <div>
+            <div class="header-cart">
+                <label id="field-total-tax" class="label-field">Valor total do imposto a ser recolhido: </label>
+                <label id="field-total-products" class="label-field">Valor Total dos produtos (com desconto): </label>
+                <label id="field-total-cart" class="label-field">Valor Total do Carrinho(com impostos) :</label>
+
+            </div>
+            <div>
+                <%- include('../../components/table/table', {tableId: 'table-cart' , tHeaders: ['Produto', 'Quantidade'
+                    , 'Desconto' , 'Total' , 'Ações' ] })%>
+            </div>
+        </div>
+    </div>
+    <%- include('./formEditProd')%>
+        <%- include('../../components/modal/modal', {id: 'modal-delete-prod' , title: 'Remover produto do carrinho' ,
+            bodyId: 'body-modal-delete' , body: 'Esta ação fará copm que o produto saia do carrinho. Deseja prosseguir'
+            , type: 'eagger' , cancellButton: true, confirmButton: true })%>
+</body>

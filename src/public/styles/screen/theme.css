@@ -1,0 +1,87 @@
+:root {
+    --raisin-black: #21232bff;
+    --gunmetal: #2c2f39ff;
+    --granite-gray: #63666fff;
+    --ghost-white: #fafaffff;
+    --lavender-blue: #e4d9ffff;
+    --cool-grey: #8687b4ff;
+    --space-cadet: #273469ff;
+    --space-cadet-2: #212b51ff;
+    --space-cadet-3: #1e2749ff;
+    --red-danger: rgb(173, 13, 13)
+        /* CSS HSL */
+        --hsl-raisin-black: hsla(228, 13%, 15%, 1);
+    --hsl-gunmetal: hsla(226, 13%, 20%, 1);
+    --hsl-granite-gray: hsla(225, 6%, 41%, 1);
+    --hsl-ghost-white: hsla(240, 100%, 99%, 1);
+    --hsl-lavender-blue: hsla(257, 100%, 93%, 1);
+    --hsl-cool-grey: hsla(239, 23%, 62%, 1);
+    --hsl-space-cadet: hsla(228, 46%, 28%, 1);
+    --hsl-space-cadet-2: hsla(228, 42%, 22%, 1);
+    --hsl-space-cadet-3: hsla(227, 42%, 20%, 1);
+
+
+    /* CSS Gradient */
+    --gradient-top: linear-gradient(0deg, #21232bff, #2c2f39ff, #63666fff, #fafaffff, #e4d9ffff, #8687b4ff, #273469ff, #212b51ff, #1e2749ff);
+    --gradient-right: linear-gradient(90deg, #21232bff, #2c2f39ff, #63666fff, #fafaffff, #e4d9ffff, #8687b4ff, #273469ff, #212b51ff, #1e2749ff);
+    --gradient-bottom: linear-gradient(180deg, #21232bff, #2c2f39ff, #63666fff, #fafaffff, #e4d9ffff, #8687b4ff, #273469ff, #212b51ff, #1e2749ff);
+    --gradient-left: linear-gradient(270deg, #21232bff, #2c2f39ff, #63666fff, #fafaffff, #e4d9ffff, #8687b4ff, #273469ff, #212b51ff, #1e2749ff);
+    --gradient-top-right: linear-gradient(45deg, #21232bff, #2c2f39ff, #63666fff, #fafaffff, #e4d9ffff, #8687b4ff, #273469ff, #212b51ff, #1e2749ff);
+    --gradient-bottom-right: linear-gradient(135deg, #21232bff, #2c2f39ff, #63666fff, #fafaffff, #e4d9ffff, #8687b4ff, #273469ff, #212b51ff, #1e2749ff);
+    --gradient-top-left: linear-gradient(225deg, #21232bff, #2c2f39ff, #63666fff, #fafaffff, #e4d9ffff, #8687b4ff, #273469ff, #212b51ff, #1e2749ff);
+    --gradient-bottom-left: linear-gradient(315deg, #21232bff, #2c2f39ff, #63666fff, #fafaffff, #e4d9ffff, #8687b4ff, #273469ff, #212b51ff, #1e2749ff);
+    --gradient-radial: radial-gradient(#21232bff, #2c2f39ff, #63666fff, #fafaffff, #e4d9ffff, #8687b4ff, #273469ff, #212b51ff, #1e2749ff);
+}
+
+.body {
+    background-color: var(--lavender-blue);
+    font-size: 16px;
+}
+
+.header {
+    background-color: var(--space-cadet);
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    border-radius: 0.3rem;
+    min-height: 40px;
+    max-height: 50px;
+    padding: 0.3rem;
+    font-size: 1.2rem;
+}
+
+.header-item {
+    margin: 0.2rem;
+    background-color: var(--ghost-white);
+    max-height: 45px;
+    min-height: 20px;
+    min-width: 3.5rem;
+    text-align: center;
+    align-items: center;
+    padding-top: 0.4rem;
+    height: 33px;
+    font-weight: 800;
+    border-radius: 0.3rem;
+}
+
+.nav-button {
+    cursor: pointer;
+}
+
+
+.container {
+    margin: 0.5rem;
+    color: var(--space-cadet-3);
+}
+
+.page-title {
+    font-size: 16px;
+    color: inherit;
+}
+
+.header-cart {
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+}

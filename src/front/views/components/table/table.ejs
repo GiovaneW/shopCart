@@ -1,0 +1,26 @@
+<div class="table-container">
+    <% if (Array.isArray(tHeaders)) { %>
+        <table class="table" id=<%- typeof tableId !=undefined ? `${tableId}` : "custom-table" %>>
+            <thead class="table-header">
+                <tr>
+                    <% tHeaders.forEach(element=> { %>
+                        <th>
+                            <%- element%>
+                        </th>
+                        <% }) %>
+                </tr>
+            </thead>
+            <tfoot class="table-footer">
+                <tr>
+                    <% tHeaders.forEach(element=> { %>
+                        <th>
+                            <%- element%>
+                        </th>
+                        <% }) %>
+                </tr>
+            </tfoot>
+        </table>
+        <% } else { %>
+
+            <% } %>
+</div>

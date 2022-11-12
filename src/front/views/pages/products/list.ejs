@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Random Title</title>
+
+    <!-- CSS link (loading Semantic UI from a CDN) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
+        integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css"
+        integrity="sha512-8bHTC73gkZ7rZ7vpqUQThUDhqcNFyYi2xgDgPDHc+GXVGHXq+xPjynxIopALmOPqzo9JZj0k6OqqewdGO3EsrQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link type="text/css" href="/styles/index.css" rel="stylesheet" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" type="text/css" crossorigin="anonymous"
+        href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.css">
+
+    <script type="text/javascript" charset="utf8"
+        src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.js"></script>
+
+    <script type="text/javascript">
+        let cartId = localStorage.getItem('cartId')
+        let productId = null
+        let action = null
+
+        
+        $(document).ready(function () {
+            $.ajax({
+                method: 'GET',
+                url: `/api/shop-cart/${cartId}`,
+                error: function(jqXHR, textStatus, errorThrown) {
+                    localStorage.removeItem('cartId')
+                }
+            })
+        })
+
+
+        function addToChart(product) {
+            productId = product
+            openModal('modal-add-prod')
+        }
+
+        function cancelForm() {
+            closeModal('modal-add-prod')
+            $('#amount').val('')
+            $('#percentDiscount').val('')
+        }
+
+        function openModal(modalId) {
+            const modal = document.getElementById(modalId)
+
+            modal.style.display = 'block'
+        }
+
+        function closeModal(modalId) {
+            const modal = document.getElementById(modalId)
+
+            modal.style.display = 'none'
+        }
+
+        function goToCart() {
+            cartId = localStorage.getItem('cartId')
+            if (!cartId) alert('Nao há nenhum carrinho salvo nesta seção.')
+            else document.location.href = `/carrinho/${cartId}`
+        }
+
+        $(document).ready(function () {
+            $('#form-add-prod').submit(function (event) {
+                const amount = $('#amount').val()
+                const percentDiscount = $('#percentDiscount').val()
+                const body = {
+                    shopCartId: cartId ?? null,
+                    productId,
+                    amount,
+                    percentDiscount
+                }
+                $.ajax({
+                    method: 'PUT',
+                    url: `/api/shop-cart`,
+                    dataType: 'json',
+                    data: JSON.stringify(body),
+                    contentType: 'application/json; charset=utf8',
+                    success: function (data, textStatus, JQueryXHR) {
+                        if (data?.id && !cartId) {
+                            cartId = data.id
+                            localStorage.setItem('cartId', cartId)
+                        }
+                        alert(data?.message ?? 'Produto adicionado ao carrinho.')
+                        document.location.reload()
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        if (jqXHR.status !== 200) {
+                            alert(jqXHR.responseJSON?.message ?? 'Erro ao adicionar produto ao carrinho.')
+                            if(jqXHR.status == 404 && cardId) localStorage.removeItem('cartId')
+
+                        } else {
+                            if (!cartId && jqXHR.responseJSON?.id) {
+                                cartId = jqXHR.responseJSON?.id
+                                localStorage.setItem('cartId', cartId)
+                            }
+                            document.location.reload()
+                        }
+                    }
+                })
+                event.preventDefault()
+            })
+        })
+    </script>
+
+    <script type="text/javascript" class="init">
+        $(document).ready(function () {
+            $('#table-products').DataTable({
+                ajax: '/api/product',
+                "columns": [
+                    { data: 'id' },
+                    { data: 'description' },
+                    { data: 'inStock', class: 'dt-right' },
+                    {
+                        data: 'price',
+                        class: 'dt-right',
+                        render: function (data, type, full, meta) {
+                            return Number.parseFloat(full.price).toLocaleString('pt-Br', { minimumFractionDigits: 2, currency: 'BRL', style: 'currency' })
+                        }
+                    },
+                    {
+                        data: 'taxIpi',
+                        class: 'dt-right',
+                        render: function (data, type, full, meta) {
+                            return `${(Number.parseFloat(full.taxIpi) * 100).toFixed(2)}%`
+                        }
+                    },
+                    {
+                        sortable: false,
+                        class: 'dt-center',
+                        render: function (data, type, full, meta) {
+                            let productId = full.id
+                            return `<i class="fa fa-plus-circle actions" title='Adicionar ao carrinho.' onclick="addToChart(${productId})"/>`
+                        }
+                    },
+                ],
+                order: [],
+                ordering: true,
+                rowGroup: {
+                    emptyDataGroup: 'Nenhum produdo encontrado.'
+                },
+                length: [20, 40, 70, 'All']
+            })
+        })
+    </script>
+
+</head>
+
+<body class="body">
+
+    <header class="header">
+        <div class="header-item" style="width: 60px;">
+            Home
+        </div>
+        <div class="header-item nav-button">
+            <i class="fa fa-cart-shopping" onclick="goToCart()"></i>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="page-title">
+            <label class="label-title">
+                Lista de Produtos
+            </label>
+        </div>
+        <div>
+            <%- include('../../components/table/table', {tableId: 'table-products' , tHeaders: ['ID', 'Descrição'
+                , 'Em Estoque' , 'Preço' , 'IPI' , 'Ações' ] })%>
+        </div>
+    </div>
+</body>
+<%- include('./formAddProd')%>

@@ -1,0 +1,16 @@
+.input-field-text {
+    border-color: var(--space-cadet-3);
+    border-radius: 0.4rem;
+    min-height: 2rem;
+    border-color: var(--gradient-top-right);
+    border-width: 0.1rem;
+}
+
+.input-field-textarea {
+    border-color: var(--space-cadet-3);
+    border-radius: 0.4rem;
+    min-height: 7rem;
+    min-width: 12rem;
+    border-color: var(--gradient-top-right);
+    border-width: 0.1rem;
+}

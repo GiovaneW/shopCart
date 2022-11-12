@@ -15,6 +15,6 @@ export class ProductRoutes {
         this.router.get('/:id', this.productCtl.getProduct)
         this.router.post('/', this.productCtl.registerProduct)
         this.router.patch('/:id', this.productCtl.updateProduct)
-        this.router.put('/:id', this.productCtl.changeProduct)
+        this.router.delete('/:id', this.productCtl.deleteProduct)
     }
 }

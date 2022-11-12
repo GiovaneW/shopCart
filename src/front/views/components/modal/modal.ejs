@@ -1,0 +1,26 @@
+<div id=<%- typeof id !=undefined ? id : 'default-modal' %> class="background-modal">
+    <div class="modal-content">
+        <div class="modal-header" id="modal-header">
+            <div class="modal-header-title">
+                <%- title%>
+            </div>
+            <div class="modal-header-close">
+                <i class="fa fa-xmark"></i>
+            </div>
+
+        </div>
+        <div class="modal-body" id=<%- typeof bodyId !=undefined ? bodyId : 'modal-body' %>>
+            <%- typeof body !=undefined ? body : '' %>
+        </div>
+        <% if (typeof type==undefined || type !='form' ) { %>
+            <div class="modal-footer" id="modal-footer">
+                <% if (cancellButton) { %>
+                    <button class="btn-secondary" type="button" onclick="closeModal(`<%- typeof id !=undefined ? id : 'default-modal' %>`)">Cancelar</button>
+                    <% } %>
+                        <% if (confirmButton) { %>
+                            <button class="btn-primary" type="button" onclick="confirmModal()">Confirmar</button>
+                            <% } %>
+            </div>
+            <% } %>
+    </div>
+</div>

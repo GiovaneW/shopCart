@@ -11,7 +11,8 @@ const sequelizeConnection = new Sequelize(POSTGRES_DB, POSTGRES_USER, POSTGRES_P
         acquire: 30000,
         idle: 60000
     },
-    timezone: 'utc'
+    timezone: 'utc',
+    logging: false
 })
 
 export default sequelizeConnection
