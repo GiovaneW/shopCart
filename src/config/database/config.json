@@ -1,0 +1,24 @@
+{
+    "development": {
+        "username": "postgres",
+        "password": "postgres66",
+        "database": "postgres_shop",
+        "host": "127.0.0.1",
+        "port": 5432,
+        "dialect": "postgres",
+        "pool": {
+            "min": 1,
+            "max": 4,
+            "idle": 60000,
+            "acquire": 30000
+        },
+        "timezone": "utc",
+        "collate": "utf8_general_ci",
+        "charset": "utf8",
+        "storage": "sequelize",
+        "migrationStorageTableName": "sequelize_migrations",
+        "seederStorage": "sequelize",
+        "seederStorageTableName": "sequelize_seeds",
+        "logging": false
+    }
+}

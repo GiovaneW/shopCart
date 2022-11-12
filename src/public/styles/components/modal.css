@@ -1,0 +1,67 @@
+/* The Modal (background) */
+.background-modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgb(0, 0, 0);
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modal-content {
+    background-color: var(--lavender-blue);
+    padding: 0.7rem;
+    width: 80%;
+    top: 30%;
+    left: 50%;
+    position: absolute;
+    border-radius: 0.5rem;
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}    
+
+.modal-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 0.3rem;
+}
+
+.modal-header-title {
+    font-size: 18px;
+    font-weight: 700;
+    color: inherit;
+}
+
+.modal-body {
+    padding: 00.3rem;
+}
+
+.modal-footer {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    gap: 0.6rem;
+    min-height: 40px;
+    padding: 0.3rem;
+}
+
+.modal-header-close {
+    color: var(--cool-grey);
+    float: right;
+    font-size: inherit;
+    font-weight: bold;
+}
+
+.modal-header-close:hover,
+.modal-header-close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}

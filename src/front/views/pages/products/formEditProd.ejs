@@ -1,0 +1,26 @@
+<%- include('../../components/modal/modal', { title: 'Editar produto do carrinho' , id: 'modal-edit-prod' ,
+    bodyId: 'modal-body-edit-prod' , body: ` <form class="form" id="form-add-prod" method="PUT">
+    <div class="form-content">
+        <div class="form-header">
+            <label class="label-field">Informe a nova quantidade e o desconto aplicado a produto:</label>
+        </div>
+        <div class="form-body">
+            <div class="form-line">
+                <div class="form-field">
+                    <label class="label-field">Quantidade</label>
+                    <input class="input-field-text" type="text" name="amount" id="amount">
+                </div>
+            </div>
+            <div class="form-line">
+                <div class="form-field">
+                    <label class="label-field">Desconto (%)</label>
+                    <input class="input-field-text" type="text" name="percentDiscount" id="percentDiscount">
+                </div>
+            </div>
+        </div>
+        <div class="form-footer">
+            <button class="btn-secondary" type="button" onclick="cancelForm()">Cancelar</button>
+            <button class="btn-primary">Salvar</button>
+        </div>
+    </div>
+    </form>` , type: 'form'})%>
