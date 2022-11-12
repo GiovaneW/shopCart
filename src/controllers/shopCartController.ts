@@ -1,12 +1,12 @@
+import { addDays } from 'date-fns'
 import { NextFunction, Request, Response } from 'express'
-import { QueryTypes, Transaction } from 'sequelize'
+import { Transaction } from 'sequelize'
+import { v4 } from 'uuid'
 import sequelizeConnection from '../config/database'
 import { Product } from '../models/product'
 import { ProductShopCart } from '../models/productShopCart'
 import { ShopCart } from '../models/shopCart'
 import { AppError, NotFoundError, WeeValidationError } from '../utils/awesomeErrorsManage'
-import { v4 } from 'uuid'
-import { addDays } from 'date-fns'
 
 export class ShopCartController {
     public async getCart(req: Request, res: Response, next: NextFunction): Promise<void> {
@@ -122,7 +122,8 @@ export class ShopCartController {
         const transaction = await sequelizeConnection.transaction({ isolationLevel: Transaction.ISOLATION_LEVELS.READ_UNCOMMITTED })
         try {
 
-            let { productId, amount, percentDiscount } = req.body
+            const { productId, amount } = req.body
+            let { percentDiscount } = req.body
 
 
             let cart = await ShopCart.create({

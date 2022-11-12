@@ -6,7 +6,7 @@ import { ValidationError } from 'sequelize'
 import { apiRoutes } from './routes'
 import { AppError, NotFoundError, WeeValidationError } from './utils/awesomeErrorsManage'
 import { NODE_ENV, PORT } from './utils/secrets'
-import { renderRoutes } from './views'
+import { renderRoutes } from './front'
 
 class App {
     public express: Application = express()
@@ -23,7 +23,7 @@ class App {
 
     private config() {
         this.express.set('port', PORT || 3000)
-        this.express.set('views', path.join(__dirname, 'views', 'pages'))
+        this.express.set('views', path.join(__dirname, 'front', 'views', 'pages'))
         this.express.set('view engine', 'ejs')
         this.express.use(express.static(path.join(__dirname, 'public')))
         this.express.use(express.json())

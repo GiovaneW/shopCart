@@ -1,7 +1,5 @@
 import { DataTypes, Model } from 'sequelize'
 import sequelizeConnection from '../config/database'
-import { ProductShopCart } from './productShopCart'
-import { ShopCart } from './shopCart'
 
 interface IProduct {
     id: number,

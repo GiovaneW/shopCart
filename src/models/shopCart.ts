@@ -1,8 +1,6 @@
 import { addDays } from 'date-fns'
-import { DataTypes, Model, QueryTypes, Sequelize, Transaction } from 'sequelize'
+import { DataTypes, Model, QueryTypes, Transaction } from 'sequelize'
 import sequelizeConnection from '../config/database'
-import { Product } from './product'
-import { ProductShopCart } from './productShopCart'
 
 interface IShopCart {
     id?: number
@@ -41,11 +39,10 @@ export class ShopCart extends Model<IShopCart> {
         coalesce(sum(p.tax_value), 0) as sum_tax, 
         coalesce(sum(p.val_discount), 0) as sum_discount, 
         coalesce(sum(p.item_subtotal), 0) as sum_sub_total 
-        from products_shop_carts as p where p.shop_cart_id = '${this.id}'`,
-            {
-                type: QueryTypes.SELECT,
-                transaction: this._transaction
-            }
+        from products_shop_carts as p where p.shop_cart_id = '${this.id}'`, {
+            type: QueryTypes.SELECT,
+            transaction: this._transaction
+        }
         )
         if (summing.length > 0) {
             const summ: ISumming = summing[0]
