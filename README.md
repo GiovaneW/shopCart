@@ -86,6 +86,3 @@ $ npm run dev
 - tests: commit de código de testes
 - project: para alterações da estrutura/organização do projeto
 - devops: comits que tratam de alterações da parte dos pipelines de automação
-
-### Observações
-Ps.: não há um linter de comandos configurado ainda mas se você não utilizar os prefixos corretos sua PR não será aprovada
